@@ -15,15 +15,13 @@
 # limitations under the License.
 #
 
-PRODUCT_RUNTIMES := runtime_libart_default
+# Inherit from Exynos7580-common
+include device/samsung/exynos7580-common/BoardConfigCommon.mk
 
-# Inherit from those products. Most specific first.
-$(call inherit-product, device/samsung/gvwifi/device.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
+DEVICE_PATH := device/samsung/gv-common
 
-# Set those variables here to overwrite the inherited values.
-PRODUCT_NAME := gvwifi
-PRODUCT_DEVICE := gvwifiue
-PRODUCT_BRAND := Samsung
-PRODUCT_MANUFACTURER := samsung
-PRODUCT_MODEL := SM-T670
+# Include makefiles from board folder
+-include $(DEVICE_PATH)/configs/board/*.mk
+
+# inherit from the proprietary version
+-include vendor/samsung/gv-common/BoardConfigVendor.mk

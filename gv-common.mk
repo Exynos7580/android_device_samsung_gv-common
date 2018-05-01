@@ -15,8 +15,17 @@
 # limitations under the License.
 #
 
-#####################
-# Release tools
-#####################
+# Inherit from Exynos7580-common
+$(call inherit-product, device/samsung/exynos7580-common/device-common.mk)
 
-TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
+LOCAL_PATH := device/samsung/gv-common
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
+PRODUCT_CHARACTERISTICS := tablet
+
+# Inherit board specific products
+-include $(LOCAL_PATH)/configs/product/*.mk
+
+# Get non-open-source specific aspects
+$(call inherit-product-if-exists, vendor/samsung/gv-common/gv-common-vendor.mk)

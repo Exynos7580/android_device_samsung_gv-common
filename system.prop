@@ -1,10 +1,6 @@
 # Display
 ro.sf.lcd_density=160
 
-# Wifi only
-ro.carrier=wifi-only
-ro.radio.noril=1
-
 # Hardware rotation
 ro.sf.hwrotation=180
 
