@@ -28,4 +28,13 @@
     <!-- Show rotation lock toggle in System UI-->
     <bool name="config_showRotationLock">false</bool>
 
+    <!-- Hardware ui (power menu) alignement:
+         Use one of the following values basing on the power button position:
+         * Top | Back -> 49 (Gravity.TOP | Gravity.CENTER_HORIZONTAL)
+         * Left -> 51 (Gravity.TOP | Gravity.LEFT)
+         * Right -> 53 (Gravity.TOP | Gravity.RIGHT)
+         * Center -> 65 (Gravity.TOP | Gravity.CENTER)
+    -->
+    <integer name="hardware_ui_align">51</integer>
+
 </resources>
