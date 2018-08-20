@@ -12,51 +12,29 @@ on init
 on post-fs-data
     rm /data/logcat.txt
 
-    #Fix battery percent drop after reboot
-    write /sys/class/power_supply/battery/batt_capacity_max 944
-
     # Create camera directory
     mkdir /data/camera 0770 media system
 
     # Create power directory
     mkdir /data/power 0771 system system
 
-on boot
-    # S/W self discharging
-    chown system system /sys/power/cpufreq_self_discharging
-    chmod 0660 /sys/power/cpufreq_self_discharging
-
 on fs
-	# Permissions for backlight
-    chown system system /sys/class/backlight/panel/auto_brightness_level
-    chown system media_rw /sys/class/backlight/panel/weakness_hbm_comp
+# Permissions for backlight
+    chmod 0660 /sys/class/backlight/panel/brightness
+    chown system system /sys/class/backlight/panel/brightness
 
-	# Permissions for LCD
-    chown system system /sys/class/lcd/panel/ldu_correction
-    chown system system /sys/class/lcd/panel/lux
-    chown system media_rw /sys/class/lcd/panel/adaptive_control
+# Permissions for LCD
+    chown system radio /sys/class/lcd/panel/lcd_type
+    chown system system /sys/class/lcd/panel/siop_enable
+    chown system system /sys/class/lcd/panel/temperature
+    chown system radio /sys/class/lcd/panel/mcd_mode
+    chown system radio /sys/class/lcd/panel/power_reduce
 
-	# Permissions for Touchkey
-    chown system radio /sys/class/sec/sec_touchkey/sar_enable
-    chown system radio /sys/class/sec/sec_touchkey/sw_reset
-    chown system radio /sys/class/sec/sec_touchkey/touchkey_earjack
-	
-	# Accelerometer_sensor
-    chown system radio /sys/class/sensors/accelerometer_sensor/mcu_rev
-    chown system radio /sys/class/sensors/accelerometer_sensor/mcu_name
-
-# BHY
-    chown system radio  /sys/devices/13870000.hsi2c/i2c-0/0-0028/iio:device0/event_shealth_int
-    chown system radio  /sys/devices/13870000.hsi2c/i2c-0/0-0028/iio:device0/pedometer_steps
-    chown system radio  /sys/devices/13870000.hsi2c/i2c-0/0-0028/iio:device0/shealth_cadence
-    chown system radio  /sys/devices/13870000.hsi2c/i2c-0/0-0028/iio:device0/shealth_cadence_enable
-    chown system radio  /sys/devices/13870000.hsi2c/i2c-0/0-0028/iio:device0/shealth_enable
-    chown system radio  /sys/devices/13870000.hsi2c/i2c-0/0-0028/iio:device0/shealth_flush_cadence
-    chmod 660  /sys/devices/13870000.hsi2c/i2c-0/0-0028/iio:device0/event_shealth_int
-    chmod 660  /sys/devices/13870000.hsi2c/i2c-0/0-0028/iio:device0/pedometer_steps
-    chmod 660  /sys/devices/13870000.hsi2c/i2c-0/0-0028/iio:device0/shealth_cadence_enable
-    chmod 660  /sys/devices/13870000.hsi2c/i2c-0/0-0028/iio:device0/shealth_enable
-    chmod 660  /sys/devices/13870000.hsi2c/i2c-0/0-0028/iio:device0/shealth_flush_cadence
+# Light_sensor
+    chown system radio /sys/class/sensors/light_sensor/lux
+    chown system radio /sys/class/sensors/light_sensor/raw_data
+    chown system radio /sys/class/sensors/light_sensor/vendor
+    chown system radio /sys/class/sensors/light_sensor/name
 
 on property:sys.boot_completed=1
     write /proc/sys/vm/dirty_bytes 41943040
